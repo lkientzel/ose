@@ -3,11 +3,13 @@ import java.util.ArrayList ;
 import java.util.Iterator;
 import java.awt.*;
 
+import fr.mertzel.ose.controleur.Observe;
 
 
 
 
-public class PlanSalle implements Iterable<PlanSalle.Poste> {
+
+public class PlanSalle extends Observe implements Iterable<PlanSalle.Poste> {
 	private String nom ;
 	private ArrayList<Poste> lesPostes = new ArrayList<Poste>() ;
 
@@ -27,6 +29,7 @@ public class PlanSalle implements Iterable<PlanSalle.Poste> {
 	public void ajouterPoste(Position position,int orientation){
 		lesPostes.add(new Poste(position,orientation)) ;
 		this.rechercherPostesVisibles() ;
+		this.notifier();
 	}
 	
 	public void reorienterPoste(Position position, int orientation){
@@ -34,6 +37,7 @@ public class PlanSalle implements Iterable<PlanSalle.Poste> {
 		if(indice != -1){
 			 lesPostes.get(indice).setOrientation(orientation);
 			 this.rechercherPostesVisibles() ;
+			 this.notifier();
 		}
 	}
 	
@@ -42,6 +46,7 @@ public class PlanSalle implements Iterable<PlanSalle.Poste> {
 		if(indice != -1){
 			lesPostes.remove(indice) ;
 			this.rechercherPostesVisibles() ;
+			this.notifier();
 		}
 	}
 	
